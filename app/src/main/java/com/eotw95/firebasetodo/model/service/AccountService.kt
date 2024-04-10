@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AccountService {
     val currentUser: Flow<User>
+    val currentUserId: String
     suspend fun authenticate(email: String, password: String)
     suspend fun createAnonymousAccount()
     suspend fun linkAccount(email: String, password: String)
