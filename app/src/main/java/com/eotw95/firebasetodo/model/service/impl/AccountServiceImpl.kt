@@ -6,23 +6,27 @@ import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth): AccountService  {
-    override suspend fun getAll(): List<Task> {
+    override suspend fun authenticate(email: String, password: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTask(taskId: String): Task? {
+    override suspend fun createAnonymousAccount() {
         TODO("Not yet implemented")
     }
 
-    override suspend fun save(task: Task) {
+    override suspend fun linkAccount(email: String, password: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun update(task: Task) {
+    override suspend fun signOut() {
         TODO("Not yet implemented")
     }
 
-    override suspend fun delete(taskId: String) {
+    override suspend fun deleteAccount() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun sendRecoveryEmail(email: String) {
         TODO("Not yet implemented")
     }
 }

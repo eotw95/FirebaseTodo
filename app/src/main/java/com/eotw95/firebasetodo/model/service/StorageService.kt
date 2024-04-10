@@ -1,10 +1,11 @@
 package com.eotw95.firebasetodo.model.service
 
+import com.eotw95.firebasetodo.model.Task
+
 interface StorageService {
-    suspend fun authenticate(email: String, password: String)
-    suspend fun createAnonymousAccount()
-    suspend fun linkAccount(email: String, password: String)
-    suspend fun signOut()
-    suspend fun deleteAccount()
-    suspend fun sendRecoveryEmail(email: String)
+    suspend fun getAll(): List<Task>
+    suspend fun getTask(taskId: String): Task?
+    suspend fun save(task: Task)
+    suspend fun update(task: Task)
+    suspend fun delete(taskId: String)
 }
