@@ -2,8 +2,10 @@ package com.eotw95.firebasetodo.model.service.impl
 
 import com.eotw95.firebasetodo.model.Task
 import com.eotw95.firebasetodo.model.service.AccountService
+import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
-class AccountServiceImpl(): AccountService  {
+class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth): AccountService  {
     override suspend fun getAll(): List<Task> {
         TODO("Not yet implemented")
     }
