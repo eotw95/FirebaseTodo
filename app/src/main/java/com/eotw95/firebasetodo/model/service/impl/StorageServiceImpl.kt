@@ -1,14 +1,12 @@
 package com.eotw95.firebasetodo.model.service.impl
 
 import com.eotw95.firebasetodo.model.Task
-import com.eotw95.firebasetodo.model.User
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.model.service.StorageService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.dataObjects
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -35,7 +33,7 @@ class StorageServiceImpl @Inject constructor(
     }
 
     override suspend fun update(task: Task) {
-        firestore.collection(TASK_COLLECTION).document(task.id).set(task).await()
+        firestore.collection(TASK_COLLECTION).document(task.id).set(task)
     }
 
     override suspend fun delete(taskId: String) {
