@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 open class FirebaseTodoViewModel: ViewModel() {
-    fun launchCatching(snackbar: Boolean = true, block: CoroutineScope.() -> Unit) {
+    fun launchCatching(snackbar: Boolean = true, block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch(
             context = CoroutineExceptionHandler { _, throwable ->
                 // Todo: snackbarの表示
