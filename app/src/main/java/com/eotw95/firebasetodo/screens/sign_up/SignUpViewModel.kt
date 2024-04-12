@@ -29,6 +29,9 @@ class SignUpViewModel @Inject constructor(
     fun onRePasswordChange(newValue: String) {
         uiState.value = uiState.value.copy(rePassword = newValue)
     }
+
+    // Todo: signInすると、元のAnonymousアカウントが残っちゃうから削除するとかの対応が必要
+    //  signOut(anonymousアカウント作成) -> signInを繰り返すとanonymousアカウントが増殖する
     fun onSignUpClick(openAndPopUpScreen: (String, String) -> Unit) {
         if (!email.isValidEmail()) {
             // Todo: snackbar表示

@@ -24,6 +24,8 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth): Ac
         }
     override val currentUserId: String
         get() = auth.currentUser?.uid.orEmpty()
+    override val hasUser: Boolean
+        get() = auth.currentUser != null
     override suspend fun authenticate(email: String, password: String) {
         // await()はsignInWithEmailAndPassword()の戻り値を取得するが、authenticate()は戻り値ないので必要ない
         // authenticate()の戻り値(AuthResult)を定義して、呼び出し元で評価する場合は必要
