@@ -13,8 +13,18 @@ class SettingsViewModel @Inject constructor(
     val uiState = accountService.currentUser.map { user ->
         SettingsUiState(isAnonymous = user.isAnonymous)
     }
-    fun onSignInClick() {}
-    fun onSignUpClick() {}
-    fun onSignOutClick() {}
-    fun onDeleteAccountClick() {}
+    fun onSignInClick(openScreen: (String) -> Unit) = openScreen("loginScreen")
+    fun onSignUpClick(openScreen: (String) -> Unit) = openScreen("signUpScreen")
+    fun onSignOutClick(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.signOut()
+            restartApp("splashScreen")
+        }
+    }
+    fun onDeleteAccountClick(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.deleteAccount()
+            restartApp("splashScreen")
+        }
+    }
 }
