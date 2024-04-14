@@ -18,7 +18,7 @@ class TasksViewModel @Inject constructor(
         launchCatching { storageService.update(task.copy(completed = !task.completed)) }
     }
     fun onAddClick(openScreen: (String) -> Unit) {
-        openScreen(EDIT_TASK_SCREEN
+        openScreen(EDIT_TASK_SCREEN)
     }
     fun onTaskActionClick(openScreen: (String) -> Unit, task: Task, action: String) {
         when (action) {

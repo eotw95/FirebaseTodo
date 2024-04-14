@@ -34,7 +34,7 @@ class SignUpViewModel @Inject constructor(
 
     // Todo: signInすると、元のAnonymousアカウントが残っちゃうから削除するとかの対応が必要
     //  signOut(anonymousアカウント作成) -> signInを繰り返すとanonymousアカウントが増殖する
-    fun onSignUpClick(openAndPopUpScreen: (String, String) -> Unit) {
+    fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
         if (!email.isValidEmail()) {
             // Todo: snackbar表示
             return
@@ -46,7 +46,7 @@ class SignUpViewModel @Inject constructor(
         launchCatching {
             accountService.linkAccount(email, password)
             // Todo: signUpScreenをpopUpすれば、1つ前のバックスタックにsettingsScreenあるから、openしなくても良さそうな気もするので確認
-            openAndPopUpScreen(SETTINGS_SCREEN, SIGN_UP_SCREEN)
+            openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
         }
     }
 }
