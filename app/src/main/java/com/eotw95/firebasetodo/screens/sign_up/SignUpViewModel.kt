@@ -1,6 +1,8 @@
 package com.eotw95.firebasetodo.screens.sign_up
 
 import androidx.compose.runtime.mutableStateOf
+import com.eotw95.firebasetodo.SETTINGS_SCREEN
+import com.eotw95.firebasetodo.SIGN_UP_SCREEN
 import com.eotw95.firebasetodo.common.ext.isValidEmail
 import com.eotw95.firebasetodo.common.ext.isValidPassword
 import com.eotw95.firebasetodo.common.ext.passwordMatches
@@ -44,7 +46,7 @@ class SignUpViewModel @Inject constructor(
         launchCatching {
             accountService.linkAccount(email, password)
             // Todo: signUpScreenをpopUpすれば、1つ前のバックスタックにsettingsScreenあるから、openしなくても良さそうな気もするので確認
-            openAndPopUpScreen("settingScreen", "signUpScreen")
+            openAndPopUpScreen(SETTINGS_SCREEN, SIGN_UP_SCREEN)
         }
     }
 }

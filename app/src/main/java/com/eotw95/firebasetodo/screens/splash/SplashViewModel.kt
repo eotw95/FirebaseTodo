@@ -1,6 +1,8 @@
 package com.eotw95.firebasetodo.screens.splash
 
 import androidx.compose.runtime.mutableStateOf
+import com.eotw95.firebasetodo.SPLASH_SCREEN
+import com.eotw95.firebasetodo.TASKS_SCREEN
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
 import com.google.firebase.auth.FirebaseAuthException
@@ -14,7 +16,7 @@ class SplashViewModel @Inject constructor(
     val showError = mutableStateOf(false)
     fun onAppStart(openAndPopUp: (String, String) -> Unit) {
         showError.value = false
-        if (accountService.hasUser) openAndPopUp("tasksScreen", "splashScreen")
+        if (accountService.hasUser) openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
         else createAnonymousAccount(openAndPopUp)
     }
     private fun createAnonymousAccount(openAndPopUp: (String, String) -> Unit) {
@@ -26,7 +28,7 @@ class SplashViewModel @Inject constructor(
                 throw ex
             }
             // Todo: Exception発生するルートに入った時に、後続のopenAndPopUp()は呼ばれていいのか？
-            openAndPopUp("tasksScreen", "splashScreen")
+            openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
         }
     }
 }

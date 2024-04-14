@@ -50,7 +50,7 @@ fun FirebaseTodoApp() {
             ) { innerPaddingModifier ->
                 NavHost(
                     navController = appState.navHostController,
-                    startDestination = "splashScreen",
+                    startDestination = SPLASH_SCREEN,
                     modifier = Modifier.padding(innerPaddingModifier)
                 ) {
                     firebaseTodoAppGraph(appState)

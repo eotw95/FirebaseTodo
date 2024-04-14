@@ -1,6 +1,7 @@
 package com.eotw95.firebasetodo.screens.login
 
 import androidx.compose.runtime.mutableStateOf
+import com.eotw95.firebasetodo.LOGIN_SCREEN
 import com.eotw95.firebasetodo.common.ext.isValidEmail
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
@@ -29,7 +30,7 @@ class LoginViewModel @Inject constructor(
         }
         launchCatching {
             accountService.authenticate(email, password)
-            openAndPopUp("settingsScreen","loginScreen")
+            openAndPopUp("settingsScreen", LOGIN_SCREEN)
         }
     }
     fun onEmailChange(newValue: String) {

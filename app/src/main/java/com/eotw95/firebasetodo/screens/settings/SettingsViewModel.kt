@@ -1,5 +1,8 @@
 package com.eotw95.firebasetodo.screens.settings
 
+import com.eotw95.firebasetodo.LOGIN_SCREEN
+import com.eotw95.firebasetodo.SIGN_UP_SCREEN
+import com.eotw95.firebasetodo.SPLASH_SCREEN
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,18 +16,18 @@ class SettingsViewModel @Inject constructor(
     val uiState = accountService.currentUser.map { user ->
         SettingsUiState(isAnonymous = user.isAnonymous)
     }
-    fun onSignInClick(openScreen: (String) -> Unit) = openScreen("loginScreen")
-    fun onSignUpClick(openScreen: (String) -> Unit) = openScreen("signUpScreen")
+    fun onSignInClick(openScreen: (String) -> Unit) = openScreen(LOGIN_SCREEN)
+    fun onSignUpClick(openScreen: (String) -> Unit) = openScreen(SIGN_UP_SCREEN)
     fun onSignOutClick(restartApp: (String) -> Unit) {
         launchCatching {
             accountService.signOut()
-            restartApp("splashScreen")
+            restartApp(SPLASH_SCREEN)
         }
     }
     fun onDeleteAccountClick(restartApp: (String) -> Unit) {
         launchCatching {
             accountService.deleteAccount()
-            restartApp("splashScreen")
+            restartApp(SPLASH_SCREEN)
         }
     }
 }

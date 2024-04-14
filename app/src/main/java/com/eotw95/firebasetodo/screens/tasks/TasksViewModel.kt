@@ -1,5 +1,6 @@
 package com.eotw95.firebasetodo.screens.tasks
 
+import com.eotw95.firebasetodo.EDIT_TASK_SCREEN
 import com.eotw95.firebasetodo.model.Task
 import com.eotw95.firebasetodo.model.service.StorageService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
@@ -17,7 +18,7 @@ class TasksViewModel @Inject constructor(
         launchCatching { storageService.update(task.copy(completed = !task.completed)) }
     }
     fun onAddClick(openScreen: (String) -> Unit) {
-        openScreen("editTaskScreen")
+        openScreen(EDIT_TASK_SCREEN
     }
     fun onTaskActionClick(openScreen: (String) -> Unit, task: Task, action: String) {
         when (action) {
@@ -27,7 +28,7 @@ class TasksViewModel @Inject constructor(
         }
     }
     private fun onEditTaskClick(openScreen: (String) -> Unit, task: Task) {
-        openScreen("editTaskScreen?taskId={${task.id}}")
+        openScreen("$EDIT_TASK_SCREEN?taskId={${task.id}}")
     }
     private fun onToggleFlagClick(task: Task) {
         launchCatching { storageService.update(task.copy(flag = !task.flag)) }
