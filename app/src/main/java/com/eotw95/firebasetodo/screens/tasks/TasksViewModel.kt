@@ -10,6 +10,7 @@ class TasksViewModel @Inject constructor(
     private val storageService: StorageService
 ): FirebaseTodoViewModel() {
     val uiState = storageService.tasks
+    val taskActionOptions = TaskActionOptions.options
 
     fun onSettingsClick(openScreen: (String) -> Unit) {
         openScreen("settingsScreen")
