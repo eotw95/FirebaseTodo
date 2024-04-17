@@ -4,8 +4,10 @@ import com.eotw95.firebasetodo.EDIT_TASK_SCREEN
 import com.eotw95.firebasetodo.model.Task
 import com.eotw95.firebasetodo.model.service.StorageService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class TasksViewModel @Inject constructor(
     private val storageService: StorageService
 ): FirebaseTodoViewModel() {
