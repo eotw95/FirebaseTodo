@@ -17,3 +17,6 @@ fun Modifier.toolBarActions(): Modifier {
 fun Modifier.smallSpacer(): Modifier {
     return this.fillMaxWidth().height(8.dp)
 }
+fun Modifier.fieldModifier(): Modifier {
+    return this.fillMaxWidth().padding(16.dp, 4.dp)
+}

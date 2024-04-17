@@ -24,7 +24,7 @@ class EditTaskViewModel @Inject constructor(
         private const val DATE_FORMAT = "EEE, d MM yyyy"
     }
 
-    private val task = mutableStateOf(Task())
+    val task = mutableStateOf(Task())
 
     init {
         // Todo: taskIdをsavedStateHandle.getで復元しているけど、setしている実装が見当たらないのでどのtaskIdを保存しているのか謎

@@ -1,6 +1,68 @@
 package com.eotw95.firebasetodo.screens.edit_task
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.eotw95.firebasetodo.R
+import com.eotw95.firebasetodo.common.composable.ActionToolBar
+import com.eotw95.firebasetodo.common.composable.BasicTextField
+import com.eotw95.firebasetodo.common.ext.fieldModifier
+import com.eotw95.firebasetodo.common.ext.toolBarActions
+import com.eotw95.firebasetodo.model.Task
 
 @Composable
-fun EditTasksScreen(popupScreen: () -> Unit) {}
+fun EditTasksScreen(
+    popupScreen: () -> Unit,
+    viewModel: EditTaskViewModel = hiltViewModel()
+) {
+    val task by viewModel.task
+
+    EditTasksScreenContent(
+        task = task,
+        onDoneClick = { viewModel.onDoneClicked(popupScreen) },
+        onTitleChange = viewModel::onTitleChange,
+        onDescriptionChange = viewModel::onDescriptionChange,
+        onUrlChange = viewModel::onUrlChange
+    )
+}
+@Composable
+fun EditTasksScreenContent(
+    task: Task,
+    onDoneClick: () -> Unit,
+    onTitleChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit,
+    onUrlChange: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ActionToolBar(
+            title = R.string.edit_task,
+            endActionIcon = Icons.Default.Check,
+            modifier = Modifier.toolBarActions(),
+            endAction = onDoneClick
+        )
+
+        val fieldModifier = Modifier.fieldModifier()
+        BasicTextField(R.string.title, task.title, fieldModifier, onTitleChange)
+        BasicTextField(R.string.description, task.description, fieldModifier, onDescriptionChange)
+        BasicTextField(R.string.url, task.url, fieldModifier, onUrlChange)
+
+        // Todo: Date and Time edit card
+        // Todo: Priority and Flag edit selector
+    }
+}
