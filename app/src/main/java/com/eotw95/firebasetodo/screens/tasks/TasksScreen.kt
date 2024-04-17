@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eotw95.firebasetodo.R
-import com.eotw95.firebasetodo.common.ActionToolBar
+import com.eotw95.firebasetodo.common.composable.ActionToolBar
 import com.eotw95.firebasetodo.common.ext.smallSpacer
 import com.eotw95.firebasetodo.common.ext.toolBarActions
 import com.eotw95.firebasetodo.model.Task
@@ -82,7 +82,12 @@ fun TasksScreenContent(
                     items = tasks,
                     key = { it.id }
                 ) { task ->
-                    TaskItem() // Todo: not implemented
+                    TaskItem(
+                        task = task,
+                        options = options,
+                        onCheckChange = { onTaskCheckChangeClick(task) },
+                        onActionClick = { action -> onTaskActionClick(openScreen, task, action) }
+                    )
                 }
             }
         }

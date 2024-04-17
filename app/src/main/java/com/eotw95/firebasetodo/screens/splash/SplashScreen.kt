@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.eotw95.firebasetodo.R
-import com.eotw95.firebasetodo.common.BasicButton
+import com.eotw95.firebasetodo.common.composable.BasicButton
 import com.eotw95.firebasetodo.common.ext.basicButton
 import kotlinx.coroutines.delay
 

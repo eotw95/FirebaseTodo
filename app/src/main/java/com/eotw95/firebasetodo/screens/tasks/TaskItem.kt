@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
 import androidx.compose.material.ContentAlpha
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eotw95.firebasetodo.common.composable.DropdownContextMenu
 import com.eotw95.firebasetodo.model.Task
 
 @Composable
@@ -51,7 +53,11 @@ fun TaskItem(
             if (task.flag) {
                 Icon(imageVector = Icons.Filled.AssistantPhoto, contentDescription = "Flag")
             }
-            // Todo: DropDownMenu
+            DropdownContextMenu(
+                options = options,
+                modifier = Modifier.wrapContentWidth(),
+                onActionClick = onActionClick
+            )
         }
     }
 }
