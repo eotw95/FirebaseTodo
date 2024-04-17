@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +17,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.common.composable.ActionToolBar
 import com.eotw95.firebasetodo.common.composable.BasicTextField
+import com.eotw95.firebasetodo.common.composable.RegularCardEditor
+import com.eotw95.firebasetodo.common.ext.basicColumn
+import com.eotw95.firebasetodo.common.ext.card
 import com.eotw95.firebasetodo.common.ext.fieldModifier
 import com.eotw95.firebasetodo.common.ext.toolBarActions
 import com.eotw95.firebasetodo.model.Task
@@ -32,22 +36,23 @@ fun EditTasksScreen(
         onDoneClick = { viewModel.onDoneClicked(popupScreen) },
         onTitleChange = viewModel::onTitleChange,
         onDescriptionChange = viewModel::onDescriptionChange,
-        onUrlChange = viewModel::onUrlChange
+        onUrlChange = viewModel::onUrlChange,
+        onDateChange = viewModel::onDateChange,
+        onTimeChange = viewModel::onTimeChange
     )
 }
 @Composable
-fun EditTasksScreenContent(
+private fun EditTasksScreenContent(
     task: Task,
     onDoneClick: () -> Unit,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
-    onUrlChange: (String) -> Unit
+    onUrlChange: (String) -> Unit,
+    onDateChange: (Long) -> Unit,
+    onTimeChange: (Int, Int) -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
+        modifier = Modifier.basicColumn(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ActionToolBar(
@@ -63,6 +68,31 @@ fun EditTasksScreenContent(
         BasicTextField(R.string.url, task.url, fieldModifier, onUrlChange)
 
         // Todo: Date and Time edit card
+        CardEditors(task = task, onDateChange = onDateChange, onTimeChange = onTimeChange)
+
         // Todo: Priority and Flag edit selector
+        CardSelector()
     }
+}
+@Composable
+private fun CardEditors(
+    task: Task,
+    onDateChange: (Long) -> Unit,
+    onTimeChange: (Int, Int) -> Unit
+) {
+    RegularCardEditor(
+        title = R.string.date,
+        icon = Icons.Default.CalendarMonth,
+        content = task.dueDate,
+        modifier = Modifier.card(),
+        onEditClick = { showDatePicker() }
+    )
+}
+@Composable
+private fun CardSelector() {}
+private fun showDatePicker() {
+    // Todo: not implemented
+}
+private fun showTimePicker() {
+    // Todo: not implemented
 }
