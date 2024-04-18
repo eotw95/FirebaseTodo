@@ -1,18 +1,16 @@
 package com.eotw95.firebasetodo.screens.edit_task
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.common.composable.ActionToolBar
@@ -23,6 +21,9 @@ import com.eotw95.firebasetodo.common.ext.card
 import com.eotw95.firebasetodo.common.ext.fieldModifier
 import com.eotw95.firebasetodo.common.ext.toolBarActions
 import com.eotw95.firebasetodo.model.Task
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 
 @Composable
 fun EditTasksScreen(
@@ -30,6 +31,7 @@ fun EditTasksScreen(
     viewModel: EditTaskViewModel = hiltViewModel()
 ) {
     val task by viewModel.task
+    val activity = LocalContext.current as AppCompatActivity
 
     EditTasksScreenContent(
         task = task,
@@ -38,7 +40,8 @@ fun EditTasksScreen(
         onDescriptionChange = viewModel::onDescriptionChange,
         onUrlChange = viewModel::onUrlChange,
         onDateChange = viewModel::onDateChange,
-        onTimeChange = viewModel::onTimeChange
+        onTimeChange = viewModel::onTimeChange,
+        activity = activity
     )
 }
 @Composable
@@ -49,7 +52,8 @@ private fun EditTasksScreenContent(
     onDescriptionChange: (String) -> Unit,
     onUrlChange: (String) -> Unit,
     onDateChange: (Long) -> Unit,
-    onTimeChange: (Int, Int) -> Unit
+    onTimeChange: (Int, Int) -> Unit,
+    activity: AppCompatActivity?
 ) {
     Column(
         modifier = Modifier.basicColumn(),
@@ -68,7 +72,7 @@ private fun EditTasksScreenContent(
         BasicTextField(R.string.url, task.url, fieldModifier, onUrlChange)
 
         // Todo: Date and Time edit card
-        CardEditors(task = task, onDateChange = onDateChange, onTimeChange = onTimeChange)
+        CardEditors(task, onDateChange, onTimeChange, activity)
 
         // Todo: Priority and Flag edit selector
         CardSelector()
@@ -78,21 +82,41 @@ private fun EditTasksScreenContent(
 private fun CardEditors(
     task: Task,
     onDateChange: (Long) -> Unit,
-    onTimeChange: (Int, Int) -> Unit
+    onTimeChange: (Int, Int) -> Unit,
+    activity: AppCompatActivity?
 ) {
     RegularCardEditor(
         title = R.string.date,
         icon = Icons.Default.CalendarMonth,
         content = task.dueDate,
         modifier = Modifier.card(),
-        onEditClick = { showDatePicker() }
+        onEditClick = { showDatePicker(activity, onDateChange) }
+    )
+    RegularCardEditor(
+        title = R.string.time,
+        icon = Icons.Default.AccessTime,
+        content = task.dueTime,
+        modifier = Modifier.card(),
+        onEditClick = { showTimePicker(activity, onTimeChange) }
     )
 }
 @Composable
 private fun CardSelector() {}
-private fun showDatePicker() {
-    // Todo: not implemented
+private fun showDatePicker(activity: AppCompatActivity?, onDateChange: (Long) -> Unit) {
+    val picker = MaterialDatePicker.Builder.datePicker().build()
+    activity?.let {
+        picker.apply {
+            show(it.supportFragmentManager, picker.toString())
+            addOnPositiveButtonClickListener { timeInMillis -> onDateChange(timeInMillis) }
+        }
+    }
 }
-private fun showTimePicker() {
-    // Todo: not implemented
+private fun showTimePicker(activity: AppCompatActivity?, onTimeChange: (Int, Int) -> Unit) {
+    val picker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
+    activity?.let {
+        picker.apply {
+            show(it.supportFragmentManager, picker.toString())
+            addOnPositiveButtonClickListener { onTimeChange(picker.hour, picker.minute) }
+        }
+    }
 }
