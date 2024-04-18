@@ -4,5 +4,21 @@ enum class Priority {
     None,
     Low,
     Medium,
-    High
+    High;
+
+    companion object {
+        fun getOptions(): List<String> {
+            val titles = mutableListOf<String>()
+            values().forEach {
+                titles.add(it.name)
+            }
+            return titles
+        }
+        fun getByName(name: String): Priority {
+            values().forEach { priority ->
+                if (priority.name == name) return priority
+            }
+            return None
+        }
+    }
 }

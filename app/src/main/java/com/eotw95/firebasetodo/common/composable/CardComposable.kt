@@ -64,3 +64,24 @@ private fun CardEditor(
         }
     }
 }
+@Composable
+fun CardSelector(
+    selection: String,
+    @StringRes label: Int,
+    options: List<String>,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier
+) {
+    Card(
+        backgroundColor = MaterialTheme.colors.onPrimary,
+        modifier = modifier
+    ) {
+        DropdownSelector(
+            selection = selection,
+            label = label,
+            modifier = Modifier.fillMaxWidth(),
+            options = options,
+            onValueChange = onValueChange
+        )
+    }
+}

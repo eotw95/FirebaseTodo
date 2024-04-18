@@ -15,11 +15,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.common.composable.ActionToolBar
 import com.eotw95.firebasetodo.common.composable.BasicTextField
+import com.eotw95.firebasetodo.common.composable.CardSelector
 import com.eotw95.firebasetodo.common.composable.RegularCardEditor
 import com.eotw95.firebasetodo.common.ext.basicColumn
 import com.eotw95.firebasetodo.common.ext.card
 import com.eotw95.firebasetodo.common.ext.fieldModifier
 import com.eotw95.firebasetodo.common.ext.toolBarActions
+import com.eotw95.firebasetodo.model.Priority
 import com.eotw95.firebasetodo.model.Task
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -41,6 +43,8 @@ fun EditTasksScreen(
         onUrlChange = viewModel::onUrlChange,
         onDateChange = viewModel::onDateChange,
         onTimeChange = viewModel::onTimeChange,
+        onPriorityChange = viewModel::onPriorityChange,
+        onFlagToggle = viewModel::onFlagToggle,
         activity = activity
     )
 }
@@ -53,6 +57,8 @@ private fun EditTasksScreenContent(
     onUrlChange: (String) -> Unit,
     onDateChange: (Long) -> Unit,
     onTimeChange: (Int, Int) -> Unit,
+    onPriorityChange: (String) -> Unit,
+    onFlagToggle: (String) -> Unit,
     activity: AppCompatActivity?
 ) {
     Column(
@@ -70,12 +76,8 @@ private fun EditTasksScreenContent(
         BasicTextField(R.string.title, task.title, fieldModifier, onTitleChange)
         BasicTextField(R.string.description, task.description, fieldModifier, onDescriptionChange)
         BasicTextField(R.string.url, task.url, fieldModifier, onUrlChange)
-
-        // Todo: Date and Time edit card
         CardEditors(task, onDateChange, onTimeChange, activity)
-
-        // Todo: Priority and Flag edit selector
-        CardSelector()
+        CardSelectors(task, onPriorityChange, onFlagToggle)
     }
 }
 @Composable
@@ -101,7 +103,20 @@ private fun CardEditors(
     )
 }
 @Composable
-private fun CardSelector() {}
+private fun CardSelectors(
+    task: Task,
+    onPriorityChange: (String) -> Unit,
+    onFlagToggle: (String) -> Unit
+) {
+    val currentPriority = Priority.getByName(task.priority).name
+    val currentFlag = EditFlagOption.getByCheckedState(task.flag).name
+    CardSelector(
+        currentPriority, R.string.priority, Priority.getOptions(), onPriorityChange, Modifier.card()
+    )
+    CardSelector(
+        currentFlag, R.string.flag, EditFlagOption.getOptions(), onFlagToggle, Modifier.card()
+    )
+}
 private fun showDatePicker(activity: AppCompatActivity?, onDateChange: (Long) -> Unit) {
     val picker = MaterialDatePicker.Builder.datePicker().build()
     activity?.let {
