@@ -14,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Android
+import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -72,7 +73,7 @@ fun TasksScreenContent(
         ) {
             ActionToolBar(
                 title = R.string.tasks,
-                endActionIcon = Icons.Default.Android,
+                endActionIcon = Icons.Filled.List,
                 modifier = Modifier.toolBarActions(),
                 endAction = { onSettingsClick(openScreen) }
             )

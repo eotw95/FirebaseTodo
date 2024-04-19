@@ -1,7 +1,9 @@
 package com.eotw95.firebasetodo.model
 
+import com.google.firebase.firestore.DocumentId
+
 data class Task(
-    val id: String = "",
+    @DocumentId val id: String = "",
     val userId: String = "",
     val title: String = "",
     val description: String = "",
