@@ -1,6 +1,5 @@
 package com.eotw95.firebasetodo.screens.edit_task
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -11,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.common.composable.ActionToolBar
@@ -33,7 +33,7 @@ fun EditTasksScreen(
     viewModel: EditTaskViewModel = hiltViewModel()
 ) {
     val task by viewModel.task
-    val activity = LocalContext.current as AppCompatActivity
+    val activity = LocalContext.current as FragmentActivity
 
     EditTasksScreenContent(
         task = task,
@@ -59,7 +59,7 @@ private fun EditTasksScreenContent(
     onTimeChange: (Int, Int) -> Unit,
     onPriorityChange: (String) -> Unit,
     onFlagToggle: (String) -> Unit,
-    activity: AppCompatActivity?
+    activity: FragmentActivity?
 ) {
     Column(
         modifier = Modifier.basicColumn(),
@@ -85,7 +85,7 @@ private fun CardEditors(
     task: Task,
     onDateChange: (Long) -> Unit,
     onTimeChange: (Int, Int) -> Unit,
-    activity: AppCompatActivity?
+    activity: FragmentActivity?
 ) {
     RegularCardEditor(
         title = R.string.date,
@@ -117,7 +117,7 @@ private fun CardSelectors(
         currentFlag, R.string.flag, EditFlagOption.getOptions(), onFlagToggle, Modifier.card()
     )
 }
-private fun showDatePicker(activity: AppCompatActivity?, onDateChange: (Long) -> Unit) {
+private fun showDatePicker(activity: FragmentActivity?, onDateChange: (Long) -> Unit) {
     val picker = MaterialDatePicker.Builder.datePicker().build()
     activity?.let {
         picker.apply {
@@ -126,7 +126,7 @@ private fun showDatePicker(activity: AppCompatActivity?, onDateChange: (Long) ->
         }
     }
 }
-private fun showTimePicker(activity: AppCompatActivity?, onTimeChange: (Int, Int) -> Unit) {
+private fun showTimePicker(activity: FragmentActivity?, onTimeChange: (Int, Int) -> Unit) {
     val picker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).build()
     activity?.let {
         picker.apply {
