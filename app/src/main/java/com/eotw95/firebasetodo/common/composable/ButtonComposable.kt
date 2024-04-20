@@ -30,28 +30,3 @@ fun BasicButton(text: Int, action: () -> Unit, modifier: Modifier) {
         Text(text = stringResource(id = text), fontSize = 16.sp)
     }
 }
-
-@Composable
-fun ActionToolBar(
-    @StringRes title: Int,
-    endActionIcon: ImageVector,
-    modifier: Modifier,
-    endAction: () -> Unit
-) {
-    TopAppBar(
-        title = { Text(text = stringResource(id = title)) },
-        backgroundColor = toolBarColor(),
-        actions = {
-            Box(modifier = modifier) {
-                IconButton(onClick = endAction) {
-                    Icon(imageVector = endActionIcon, contentDescription = "Action")
-                }
-            }
-        }
-    )
-}
-
-@Composable
-private fun toolBarColor(darkTheme: Boolean = isSystemInDarkTheme()): Color {
-    return if (darkTheme) MaterialTheme.colors.secondary else MaterialTheme.colors.primaryVariant
-}
