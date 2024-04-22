@@ -8,8 +8,10 @@ import com.eotw95.firebasetodo.common.ext.isValidPassword
 import com.eotw95.firebasetodo.common.ext.passwordMatches
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val accountService: AccountService
 ): FirebaseTodoViewModel() {
