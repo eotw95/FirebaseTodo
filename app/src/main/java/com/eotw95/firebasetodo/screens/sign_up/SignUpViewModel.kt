@@ -1,11 +1,13 @@
 package com.eotw95.firebasetodo.screens.sign_up
 
 import androidx.compose.runtime.mutableStateOf
+import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.SETTINGS_SCREEN
 import com.eotw95.firebasetodo.SIGN_UP_SCREEN
 import com.eotw95.firebasetodo.common.ext.isValidEmail
 import com.eotw95.firebasetodo.common.ext.isValidPassword
 import com.eotw95.firebasetodo.common.ext.passwordMatches
+import com.eotw95.firebasetodo.common.snackbar.SnackbarManager
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,11 +40,15 @@ class SignUpViewModel @Inject constructor(
     //  signOut(anonymousアカウント作成) -> signInを繰り返すとanonymousアカウントが増殖する
     fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
         if (!email.isValidEmail()) {
-            // Todo: snackbar表示
+            SnackbarManager.showMessage(R.string.email_error)
             return
         }
-        if (!password.isValidPassword() || password.passwordMatches(rePassword)) {
-            // Todo: snackbar表示
+        if (!password.isValidPassword()) {
+            SnackbarManager.showMessage(R.string.password_error)
+            return
+        }
+        if (password.passwordMatches(rePassword)) {
+            SnackbarManager.showMessage(R.string.password_match_error)
             return
         }
         launchCatching {
