@@ -10,6 +10,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
+/**
+ *  State Holder Class
+ */
 @Stable
 class FirebaseTodoAppState(
     val scaffoldState: ScaffoldState,

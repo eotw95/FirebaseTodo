@@ -43,17 +43,7 @@ fun FirebaseTodoApp() {
 
         Surface(color = MaterialTheme.colors.background) {
             val appState = rememberAppState()
-
             Scaffold(
-                snackbarHost = { snackbarHostState ->
-                    SnackbarHost(
-                        hostState = snackbarHostState,
-                        modifier = Modifier.padding(8.dp),
-                        snackbar = {
-                            Snackbar(snackbarData = it, contentColor = MaterialTheme.colors.background)
-                        }
-                    )
-                },
                 scaffoldState = appState.scaffoldState
             ) { innerPaddingModifier ->
                 NavHost(
@@ -68,6 +58,9 @@ fun FirebaseTodoApp() {
     }
 }
 
+/**
+ *  FirebaseTodoAppStateをrememberで保持
+ */
 @Composable
 fun rememberAppState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
