@@ -36,11 +36,6 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun FirebaseTodoApp() {
     FirebaseTodoTheme {
-        // Todo: この実装が必要なのかどうか分からないので確認
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            RequestNotificationPermissionDialog()
-//        }
-
         Surface(color = MaterialTheme.colors.background) {
             val appState = rememberAppState()
             Scaffold(

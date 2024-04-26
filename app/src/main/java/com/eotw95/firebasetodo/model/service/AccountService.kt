@@ -9,7 +9,7 @@ interface AccountService {
     val hasUser: Boolean
     suspend fun authenticate(email: String, password: String)
     suspend fun createAnonymousAccount()
-    suspend fun linkAccount(email: String, password: String)
+    suspend fun signUp(email: String, password: String)
     suspend fun signOut()
     suspend fun deleteAccount()
     suspend fun sendRecoveryEmail(email: String)

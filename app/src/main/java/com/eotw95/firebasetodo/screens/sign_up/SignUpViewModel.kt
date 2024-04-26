@@ -47,12 +47,12 @@ class SignUpViewModel @Inject constructor(
             SnackbarManager.showMessage(R.string.password_error)
             return
         }
-        if (password.passwordMatches(rePassword)) {
+        if (!password.passwordMatches(rePassword)) {
             SnackbarManager.showMessage(R.string.password_match_error)
             return
         }
         launchCatching {
-            accountService.linkAccount(email, password)
+            accountService.signUp(email, password)
             // Todo: signUpScreenをpopUpすれば、1つ前のバックスタックにsettingsScreenあるから、openしなくても良さそうな気もするので確認
             openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
         }

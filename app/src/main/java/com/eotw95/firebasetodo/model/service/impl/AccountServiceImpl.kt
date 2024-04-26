@@ -37,9 +37,10 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth): Ac
         auth.signInAnonymously().await()
     }
 
-    override suspend fun linkAccount(email: String, password: String) {
+    override suspend fun signUp(email: String, password: String) {
+        val user = auth.currentUser
         val credential = EmailAuthProvider.getCredential(email, password)
-        auth.currentUser!!.linkWithCredential(credential).await()
+        if (user != null && user.isAnonymous) user.linkWithCredential(credential).await()
     }
 
     override suspend fun signOut() {
