@@ -5,6 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -44,6 +45,12 @@ fun DialogCancelButton(@StringRes text: Int, action: () -> Unit) {
             backgroundColor = MaterialTheme.colors.primary
         )
     ) {
+        Text(text = stringResource(id = text))
+    }
+}
+@Composable
+fun NoBorderButton(text: Int, action: () -> Unit, modifier: Modifier = Modifier) {
+    TextButton(onClick = action, modifier = modifier) {
         Text(text = stringResource(id = text))
     }
 }

@@ -2,7 +2,9 @@ package com.eotw95.firebasetodo.screens.login
 
 import androidx.compose.runtime.mutableStateOf
 import com.eotw95.firebasetodo.LOGIN_SCREEN
+import com.eotw95.firebasetodo.R
 import com.eotw95.firebasetodo.common.ext.isValidEmail
+import com.eotw95.firebasetodo.common.snackbar.SnackbarManager
 import com.eotw95.firebasetodo.model.service.AccountService
 import com.eotw95.firebasetodo.screens.FirebaseTodoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,11 +23,11 @@ class LoginViewModel @Inject constructor(
 
     fun onSignInClick(openAndPopUp: (String, String) -> Unit) {
         if (!email.isValidEmail()) {
-            // Todo: snackbarの実装
+            SnackbarManager.showMessage(R.string.email_error)
             return
         }
         if (password.isBlank()) {
-            // Todo: snackbarの実装
+            SnackbarManager.showMessage(R.string.password_error)
             return
         }
         launchCatching {
@@ -42,12 +44,12 @@ class LoginViewModel @Inject constructor(
     }
     fun onForgotPasswordClick() {
         if (!email.isValidEmail()) {
-            // Todo: snackbarの実装
+            SnackbarManager.showMessage(R.string.email_error)
             return
         }
         launchCatching {
             accountService.sendRecoveryEmail(email)
-            // Todo: snackbarの実装 check email
+            SnackbarManager.showMessage(R.string.recovery_email_sent)
         }
     }
 }
