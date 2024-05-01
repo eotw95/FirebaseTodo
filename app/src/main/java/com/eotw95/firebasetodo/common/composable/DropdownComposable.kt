@@ -80,7 +80,7 @@ fun DropdownSelector(
             onValueChange = {},
             modifier = Modifier.fillMaxWidth(),
             readOnly = true,
-            label = { stringResource(id = label) },
+            label = { Text(text = stringResource(id = label)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
             colors = dropdownColors()
         )
